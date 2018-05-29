@@ -23,3 +23,5 @@ Building a backtester manually is a good learning experience for quant trading s
     + A backtest main class to handle the loop
 - [quantopian/zipline](https://github.com/quantopian/zipline)
     + A mature backtesting framework
+
+This project is associated with virtual environment **backtest-env**.
