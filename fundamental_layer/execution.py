@@ -1,6 +1,9 @@
 #!usr/env/bin ipython
 
 """Execution Class
+
+Execution process is defined in this file.
+
 """
 
 import datetime
@@ -68,6 +71,9 @@ class SimulatedExecutionHandler(ExecutionHandler):
         event - Contains an Event object with order information.
         """
         if event.type == 'ORDER':
-            fill_event = FillEvent(datetime.datetime.utcnow(), event.symbol,
-                                   'ARCA', event.quantity, event.direction, None)
+            # TODO: rewrite the fill_cost option
+            fill_event = FillEvent(datetime.datetime.utcnow(),
+                                       event.symbol,
+                                       'ARCA', event.quantity,
+                                       event.direction) # fill_cost=0, commission=None
             self.events.put(fill_event)

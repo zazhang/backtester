@@ -1,6 +1,11 @@
 #!usr/env/bin ipython
 
-""" BackTest Class
+""" Backtest Class
+
+This file defines a Backtest class, which creates a backtest environment. 
+The main program constructs an instance of Backtest class and perform
+the backtest task.
+
 """
 
 import datetime
@@ -115,7 +120,7 @@ class Backtest(object):
         stats = self.portfolio.output_summary_stats()
         
         print("Creating equity curve...")
-        print(self.portfolio.equity_curve.tail(10))
+        print(self.portfolio.equity_curve)
         pprint.pprint(stats)
 
         print("Signals: %s" % self.signals)

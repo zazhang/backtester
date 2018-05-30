@@ -1,7 +1,11 @@
 #!usr/env/bin ipython
 
 """Performance Measures
+
+This file defines some basic performance measures of backtest.
+
 U.S. trading hours within a day is 6.5.
+
 """
 
 import numpy as np

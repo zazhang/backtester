@@ -1,17 +1,8 @@
 #!usr/env/bin ipython
 
-"""Simple BuyAndHoldStrategy with Backtest
-"""
-
-import datetime
-import numpy as np
-
-from fundamental_layer.backtest import Backtest
-from fundamental_layer.data import HistoricCSVDataHandler
 from fundamental_layer.event import SignalEvent
-from fundamental_layer.execution import SimulatedExecutionHandler
-from fundamental_layer.portfolio import NaivePortfolio
 from fundamental_layer.strategy import Strategy
+
 
 class BuyAndHoldStrategy(Strategy):
     """
@@ -60,30 +51,11 @@ class BuyAndHoldStrategy(Strategy):
         strength = 1.0
         if event.type == 'MARKET':
             for s in self.symbol_list:
-                bars = self.bars.get_latest_bars(s, N=1)
+                #self.bars.get_latest_bar_value(s, 'close')
+                bars = self.bars.get_latest_bars(s, 1)
                 if bars is not None and bars != []:
                     if self.bought[s] == False:
                         # (Symbol, Datetime, Type = LONG, SHORT or EXIT)
                         signal = SignalEvent(bars[0][0], bars[0][1], 'LONG', strength)
                         self.events.put(signal)
                         self.bought[s] = True
-
-
-if __name__ == "__main__":
-    data_source = '~/documents/projects/backtester/'
-    symbol_list = ['AAPL']
-    initial_capital = 100000.0
-    start_date = datetime.datetime(1990,1,1,0,0,0)
-    heartbeat = 0.0
-
-    backtest = Backtest(data_source, 
-                        symbol_list, 
-                        initial_capital, 
-                        heartbeat,
-                        start_date,
-                        HistoricCSVDataHandler, 
-                        SimulatedExecutionHandler, 
-                        NaivePortfolio, 
-                        BuyAndHoldStrategy)
-    
-    backtest.simulate_trading()

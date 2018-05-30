@@ -1,6 +1,11 @@
 #!usr/bin/env ipython
 
 """Porfolio Class
+
+This file is the most complicated in the backtester. Porfolio and order is 
+managed through the Portfolio class. How order is created, 
+how cash limits the trade, etc. are designed in this class.
+
 """
 
 import datetime
@@ -13,7 +18,6 @@ from math import floor
 
 from event import FillEvent, OrderEvent
 
-# other imports
 from performance import create_sharpe_ratio, create_drawdowns
 
 
@@ -117,7 +121,10 @@ class NaivePortfolio(Portfolio):
         """
         bars = {}
         for sym in self.symbol_list:
-            bars[sym] = self.bars.get_latest_bars(sym, N=1)
+            bars[sym] = self.bars.get_latest_bars(sym, 1)
+        # `bars[sym]` returns a list containing a tuple, which contains
+        # (symbol, datetime, open, low, high, close, volume).
+        # So `bars[sym][0][5]` is the close price.
 
         # Update positions
         dp = dict( (k,v) for k, v in [(s, 0) for s in self.symbol_list] )
@@ -223,6 +230,9 @@ class NaivePortfolio(Portfolio):
             order = OrderEvent(symbol, order_type, abs(cur_quantity), 'SELL')
         if direction == 'EXIT' and cur_quantity < 0:
             order = OrderEvent(symbol, order_type, abs(cur_quantity), 'BUY')
+
+        return order # !!! Added by albert, the
+                     #   return statement passes order to execution.
 
     def update_signal(self, event):
         """

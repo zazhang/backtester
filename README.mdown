@@ -24,4 +24,9 @@ Building a backtester manually is a good learning experience for quant trading s
 - [quantopian/zipline](https://github.com/quantopian/zipline)
     + A mature backtesting framework
 
-This project is associated with virtual environment **backtest-env**.
+This project is associated with virtual environment **backtest-env**. Code is not directly copied from QuantStart or any reference, some modifications have been made to make it work.
+
+## Structure
+
+- **fundamental_layer** module contains the basic classes for the backtester implementation.
+- **strategies** module contains all the trading strategies for backtesting.

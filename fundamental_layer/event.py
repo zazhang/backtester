@@ -1,6 +1,9 @@
 #!usr/env/bin ipython
 
 """Event Class
+
+The file provides fundamental events occurred in event-based trading system.
+
 """
 
 class Event(object):
@@ -92,7 +95,7 @@ class FillEvent(Event):
     """
 
     def __init__(self, timeindex, symbol, exchange, quantity, 
-                 direction, fill_cost, commission=None):
+                 direction, fill_cost=0.0, commission=None):
         """
         Initializes the FillEvent object. Sets the symbol, exchange,
         quantity, direction, cost of fill and an optional 

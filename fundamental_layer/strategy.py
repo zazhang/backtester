@@ -1,6 +1,10 @@
 #!usr/env/bin ipython
 
 """Strategy Class
+
+This file defines the basic structure of trading strategy. All strategies should
+extend this class.
+
 """
 
 import datetime
